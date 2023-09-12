@@ -9,7 +9,7 @@ const MusicCard: React.FC<{
 }> = ({ artist, name, image, average_rating}) => {
   return (
     <MusicContainer>
-      <MusicImg src={image} alt="Music" />
+      <MusicImg style={{ backgroundImage: `url(${image})`}} />
       <MusicName>{name}</MusicName>
       <MusicArtist>{artist}</MusicArtist>
       {average_rating && <MusicRating>{average_rating}</MusicRating>}
