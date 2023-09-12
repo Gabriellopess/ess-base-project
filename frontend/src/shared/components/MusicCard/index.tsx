@@ -5,14 +5,14 @@ const MusicCard: React.FC<{
   artist: string;
   name: string;
   image: string;
-  avg_rating: number;
-}> = ({ artist, name, image, avg_rating }) => {
+  average_rating: number;
+}> = ({ artist, name, image, average_rating}) => {
   return (
     <MusicContainer>
       <MusicImg src={image} alt="Music" />
       <MusicName>{name}</MusicName>
       <MusicArtist>{artist}</MusicArtist>
-      {avg_rating && <MusicRating>{avg_rating}</MusicRating>}
+      {average_rating && <MusicRating>{average_rating}</MusicRating>}
     </MusicContainer>
   );
 };

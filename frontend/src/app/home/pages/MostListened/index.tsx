@@ -26,7 +26,8 @@ const MostListened: React.FC = () => {
     image_url: string;
     popularity: number;
     release_year: number;
-    avg_rating: number;
+    average_rating: number;
+    song: string;
   }
   interface ReponseTrue {
     albums: SearchResult[];
@@ -34,14 +35,15 @@ const MostListened: React.FC = () => {
   }
   interface ResultReponse {
     data: ReponseTrue[];
+    songs: SearchResult[];
   }
   interface SearchFilterProps {
     onSearch: (query: string) => void;
     onFilter: () => void;
     searchQuery: string;
   }
-  const handleResponse = (response: ResultReponse) => {
-    const aux = [];
+  const handleResponse = (response: ReponseTrue) => {
+    const aux: SearchResult[] = [];
     response.songs.forEach((song) => {
       song.image_url = 'https://www.udiscovermusic.com/wp-content/uploads/2019/04/Tame-Impala-Currents-album-cover-web-optimised-820.jpg'
 
@@ -54,6 +56,7 @@ const MostListened: React.FC = () => {
     console.log('---------------');
     setTrueMusicList(aux);
   };
+
   const fetchData = async () => {
     try {
       const response = await axios.get('http://127.0.0.1:8000/songs/songs_r/top-rated', {
@@ -70,10 +73,13 @@ const MostListened: React.FC = () => {
       console.error('Erro ao buscar dados:', error);
     }
   };
-  const [trueMusicList, setTrueMusicList] = React.useState<SearchResult[]>([]);
+
+  const [trueMusicList, setTrueMusicList] = React.useState<SearchResult[]>([]); // Ideal é estar no inicio do arquivo
+
   useEffect(() => {
     fetchData();
   }, []);
+
   return (
     <Wallpaper>
       <MusicListContainer>
@@ -83,7 +89,7 @@ const MostListened: React.FC = () => {
             artist={music.artist ? music.artist : "Desconhecido"}
             name={music.song}
             image={music.image_url ? music.image_url : MusicImage}
-            avg_rating={music.average_rating}
+            average_rating={music.average_rating}
           />
         ))} 
       </MusicListContainer>
