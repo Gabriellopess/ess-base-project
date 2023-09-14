@@ -38,6 +38,10 @@ const router = createBrowserRouter([
         path: "/list_content",
         Component: ListContent,
       },
+      // {
+      //   path: "/list_content",
+      //   Component: ListContent,
+      // },
     ]
   },
   
