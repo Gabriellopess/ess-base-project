@@ -60,15 +60,15 @@ const DataTableReview: React.FC = () => {
                 setData((prevData) => prevData.filter((item) => item.id !== id));
                 
                 Swal.fire(
-                  'Deleted!',
-                  'Your file has been deleted.',
+                  'Deletada!',
+                  'Sua avaliação foi deletada.',
                   'success'
                 )
               }
               else{
                 Swal.fire(
                   'Error!',
-                  'Your file has not been deleted.',
+                  'Sua avaliação não foi deletada.',
                   'error'
                 )
               }
@@ -126,6 +126,7 @@ const DataTableReview: React.FC = () => {
                 <IconButton 
                     color="secondary" 
                     onClick={() => handleDelete(row.id)}
+                    data-cy={`delete_${row.id}`}
                 >
                     <DeleteIcon />
                 </IconButton>

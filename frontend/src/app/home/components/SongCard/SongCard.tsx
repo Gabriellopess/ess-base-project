@@ -4,6 +4,7 @@ import deezer from "./deezer.svg";
 import starFull from "./star-full.svg";
 import spotify from "./spotify.svg";
 import youtube from "./youtube.svg";
+import { nullable } from "zod";
 
 export type SongCardProps = {
   songCover: string;
@@ -17,6 +18,10 @@ export type SongCardProps = {
   appleMusicLink: string;
   youtubeLink: string;
   deezerLink: string;
+  spotify_link_data_cy?: string;
+  apple_music_link_data_cy?: string;
+  deezer_link_data_cy?: string;
+  youtube_link_data_cy?: string;
 };
 
 const CardWrapper = styled.div`
@@ -156,19 +161,19 @@ const SongCard = (props: SongCardProps) => {
         </ButtonRate> */}
 
         <AvailableLinks>
-          <AvailableLink href={props.spotifyLink}>
+          <AvailableLink href={props.spotifyLink} data-cy={props.spotify_link_data_cy}>
             <img src={spotify} width={48} height={48} />
           </AvailableLink>
 
-          <AvailableLink href={props.appleMusicLink}>
+          <AvailableLink href={props.appleMusicLink} data-cy={props.apple_music_link_data_cy}>
             <img src={appleMusic} width={48} height={48} />
           </AvailableLink>
 
-          <AvailableLink href={props.deezerLink}>
+          <AvailableLink href={props.deezerLink} data-cy={props.deezer_link_data_cy}>
             <img src={deezer} width={48} height={48} />
           </AvailableLink>
 
-          <AvailableLink href={props.youtubeLink}>
+          <AvailableLink href={props.youtubeLink} data-cy={props.youtube_link_data_cy}>
             <img src={youtube} width={48} height={48} />
           </AvailableLink>
         </AvailableLinks>

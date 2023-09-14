@@ -77,7 +77,7 @@ const EditModal: React.FC<EditModalProps> = ({ open, onClose, itemId}) => {
       if(response.status == 200){
         Swal.fire({
           icon: 'success',
-          title: 'Música editada com sucesso!',
+          title: 'Avaliação editada com sucesso!',
           showConfirmButton: false,
           timer: 1500
         })
@@ -152,14 +152,26 @@ const EditModal: React.FC<EditModalProps> = ({ open, onClose, itemId}) => {
             </Grid>
             <Grid item xs={6}>
               <TextField
-                required
+                // required
                 name="song"
                 label="Música"
                 fullWidth
                 value={formData.song}
-                onChange={handleInputChange}
+                // onChange={handleInputChange}
                 color="secondary"
                 style={{ marginBottom: '8px' }}
+                disabled
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                name="id"
+                label="Review ID"
+                fullWidth
+                value={formData.id}
+                color="secondary"
+                style={{ marginBottom: '8px' }}
+                disabled
               />
             </Grid>
           </Grid>
@@ -167,10 +179,10 @@ const EditModal: React.FC<EditModalProps> = ({ open, onClose, itemId}) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} color="primary">
-          Cancel
+          Cancelar
         </Button>
         <Button onClick={handleSubmit} color="secondary">
-          Save
+          Salvar
         </Button>
       </DialogActions>
     </Dialog>

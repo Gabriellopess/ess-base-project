@@ -83,13 +83,13 @@ const ListContent: React.FC = () => {
       });
     }, []);
 
-    const handleDelete = (id: number) => {
-      // Implement delete functionality (send a DELETE request to your API)
-      axios.delete(`/api/data/${id}`).then(() => {
-        // Remove the deleted item from the state
-        setData((prevData) => prevData.filter((item) => item.id !== id));
-      });
-    };
+    // const handleDelete = (id: number) => {
+    //   // Implement delete functionality (send a DELETE request to your API)
+    //   axios.delete(`/api/data/${id}`).then(() => {
+    //     // Remove the deleted item from the state
+    //     setData((prevData) => prevData.filter((item) => item.id !== id));
+    //   });
+    // };
 
     const [isOpenMusic, setIsOpenMusic] = useState(false);
     const [isOpenAlbum, setIsOpenAlbum] = useState(false);

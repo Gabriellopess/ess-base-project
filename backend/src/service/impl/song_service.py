@@ -17,9 +17,6 @@ class SongService:
     @staticmethod
     def get_songs():
         songs = db.get_all_items("songs")
-        # db.drop_collection("songs")
-        # db.drop_collection("ablums")
-        # db.drop_collection("reviews")
 
         return songs
 
@@ -31,7 +28,6 @@ class SongService:
             return None
 
         reviews = db.find("reviews", {"song_id": song_id})
-
         song["average_rating"] = calculate_average_rating(reviews)
 
         return song
@@ -54,7 +50,15 @@ class SongService:
     @staticmethod
     def delete_song(id: str):
         deleted_song = db.delete("songs", id)
+        song_reviews = db.get_reviews_by_song(id)
+        print("======== SONG DELETE ========")
+        print(song_reviews)
 
+        print("======== SONG DELETE ========")
+        for review in song_reviews:
+            print(review)
+            db.delete("reviews", review["id"])
+        
         return deleted_song
 
     @staticmethod

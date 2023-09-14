@@ -19,12 +19,14 @@ type Props = {
   isAdjustStock?: boolean;
   style?: React.CSSProperties;
   noMargin?: boolean;
+  required?: boolean;
   'data_cy'?: string;
 };
 
 function RegisterInput({
   onChange,
   value,
+  required,
   placeholder,
   label,
   id,
@@ -44,7 +46,7 @@ function RegisterInput({
           disabled={disabled}
           id={id}
           type={'text'}
-          required
+          required={required}
           placeholder={placeholder}
           onChange={(e: any) => onChange(e.target.value)}
           value={value}

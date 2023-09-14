@@ -54,5 +54,19 @@ class ReviewService:
     @staticmethod
     def delete_review(review_id: str):
         """Delete item method implementation"""
-        review = db.delete('reviews', review_id)
-        return review
+        print("=========== delete_review ===========")
+    
+        review = db.get_by_id('reviews', review_id)
+        song_id = review['song']
+        song = db.get_item_by_id('songs', song_id)
+        album = db.get_item_by_id('albums', song_id)
+        
+        if song:
+            song['popularity'] -= 1
+            db.edit('songs', song['_id'], song)
+        elif album:
+            album['popularity'] -= 1
+            db.edit('albums', album['_id'], album)
+
+        deleted_review = db.delete('reviews', review_id)
+        return deleted_review

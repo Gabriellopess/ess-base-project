@@ -57,8 +57,8 @@ const Home: React.FC = () => {
             rating={review.rating}
             title={review.title}
             content={review.description}
-            authorName="Breno"
-            authorUsername="breninho"
+            authorName={review.author} //"Breno"
+            authorUsername={review.author} //"breninho"
             title_data_cy={review.title}
             content_data_cy={review.description}
           />

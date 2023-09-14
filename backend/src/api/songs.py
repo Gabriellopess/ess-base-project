@@ -189,15 +189,21 @@ def get_top_rated_songs(limit: int = 5):
     - A list of top-rated songs.
     """
     songs = SongService.get_top_rated_songs(limit)
-    for song in songs:
+    valid_songs = []  # Create a new list for valid songs
 
+    for song in songs:
         real_data_songs = SongService.get_song(song['song'])
-        if real_data_songs is None:
-            continue
-        song['title'] = real_data_songs['title']
-        song['artist'] = real_data_songs['artist']
-        song['cover'] = real_data_songs['cover']
-        song["id"] = song["song"]
+
+        # If real_data_songs exists and has the necessary attributes, we consider it valid
+        if real_data_songs and all(key in real_data_songs for key in ['title', 'artist', 'cover']):
+            song['title'] = real_data_songs['title']
+            song['artist'] = real_data_songs['artist']
+            song['cover'] = real_data_songs['cover']
+            song["id"] = song["song"]
+            valid_songs.append(song)
+
+    songs = valid_songs  # Now songs only contains valid songs
+
     print(songs)
     response = {"songs": songs}
     return response

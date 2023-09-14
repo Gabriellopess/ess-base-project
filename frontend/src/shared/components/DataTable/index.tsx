@@ -35,14 +35,12 @@ const DataTable: React.FC<DataTableProps> = ({contentType}) => {
         apiUrl = 'http://127.0.0.1:8000/songs/';
 
         axios.get(apiUrl).then((response) => {
-            console.log(response.data);
             setData(response.data.songs);
         });
     } else if (contentType === 'albums') {
         apiUrl = 'http://127.0.0.1:8000/albums/';
 
         axios.get(apiUrl).then((response) => {
-            console.log(response.data);
             setData(response.data.albums);
         });
     }
@@ -75,15 +73,15 @@ const DataTable: React.FC<DataTableProps> = ({contentType}) => {
               setData((prevData) => prevData.filter((item) => item.id !== id));
               
               Swal.fire(
-                'Deleted!',
-                'Your file has been deleted.',
+                'Deletado!',
+                'Seu conteúdo foi deletado.',
                 'success'
               )
             }
             else{
               Swal.fire(
                 'Error!',
-                'Your file has not been deleted.',
+                'Seu conteúdo não foi deletado.',
                 'error'
               )
             }
@@ -92,23 +90,20 @@ const DataTable: React.FC<DataTableProps> = ({contentType}) => {
           apiUrl = `http://127.0.0.1:8000/albums/${id}`;
 
           axios.delete(apiUrl).then((response) => {
-              console.log(response.data);
-              console.log(response);
-
               if(response.status === 200){
                 // Remove the deleted item from the state
                 setData((prevData) => prevData.filter((item) => item.id !== id));
                 
                 Swal.fire(
-                  'Deleted!',
-                  'Your file has been deleted.',
+                  'Deletado!',
+                  'Seu conteúdo foi deletado.',
                   'success'
                 )
               }
               else{
                 Swal.fire(
                   'Error!',
-                  'Your file has not been deleted.',
+                  'Seu conteúdo não foi deletado.',
                   'error'
                 )
               }
@@ -167,6 +162,7 @@ const DataTable: React.FC<DataTableProps> = ({contentType}) => {
                 <IconButton 
                     color="primary" 
                     onClick={() => handleEdit(row.id)}
+                    data-cy={`edit_${row.id}`}
                 >
                     <EditIcon />
                 </IconButton>

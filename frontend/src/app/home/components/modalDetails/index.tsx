@@ -27,6 +27,7 @@ interface Review {
   title: string;
   description: string;
   rating: number;
+  author: string;
 }
 
 const MusicDetail: React.FC<{
@@ -50,18 +51,27 @@ const MusicDetail: React.FC<{
       );
       if (id == "65009d89de657d24ae7f1357") {
       }
-      console.log("-----------------");
-      console.log("musicDetails");
-      console.log(response.data);
-      console.log(response2.data);
-      console.log("-----------------");
+
       const data = response.data;
-      const aux = {
-        youtube_link: "",
-        deezer_link: "",
-        spotify_link: "",
-        apple_music_link: "",
-      };
+      // const aux = {
+      //   youtube_link: "",
+      //   deezer_link: "",
+      //   spotify_link: "",
+      //   apple_music_link: "",
+      // };
+
+      if(data.available_on.youtube_link.length == 0){
+        delete data.available_on.youtube_link;
+      }
+      if(data.available_on.deezer_link.length == 0){
+        delete data.available_on.deezer_link;
+      }
+      if(data.available_on.spotify_link.length == 0){
+        delete data.available_on.spotify_link;
+      }
+      if(data.available_on.apple_music_link.length == 0){
+        delete data.available_on.apple_music_link;
+      }
 
       // data.available_on = aux;
 
@@ -82,17 +92,18 @@ const MusicDetail: React.FC<{
         title="Detalhes da música"
         textExit=""
         textSubmit="Avalie esta música"
-        onClick={(e) => handleSubmit(e)}
+        onClick={() => {}}
         onCancel={() => {
           setIsOpen(false);
         }}
         isBold={false}
         disabledSubmit={false}
+        data-cy="Detalhes da música"
         children={
           data ? (
             <>
               <SongCard
-                id={data.id}
+                // id={data.id}
                 title={data.title}
                 artistName={data.artist}
                 songCover={data.cover}
@@ -104,7 +115,10 @@ const MusicDetail: React.FC<{
                 appleMusicLink={data.available_on.apple_music_link}
                 deezerLink={data.available_on.deezer_link}
                 youtubeLink={data.available_on.youtube_link}
-          
+                spotify_link_data_cy={data.available_on.spotify_link}
+                apple_music_link_data_cy={data.available_on.apple_music_link}
+                deezer_link_data_cy={data.available_on.deezer_link}
+                youtube_link_data_cy={data.available_on.youtube_link}
               />
               {reviews.length > 0 ? (
                 <div className="reviews-container">
@@ -114,8 +128,8 @@ const MusicDetail: React.FC<{
                         title={review.title}
                         rating={review.rating}
                         description={review.description}
-                        authorName="Breno"
-                        authorUsername="breninho"
+                        authorName={review.author} //"Breno"
+                        authorUsername={review.author} //"breninho"
                       />
                     </div>
                   ))}
@@ -129,7 +143,7 @@ const MusicDetail: React.FC<{
           )
         }
       />
-      <style jsx>{`
+      {/* <style jsx>{`
         .reviews-container {
           display: flex;
           flex-direction: column;
@@ -138,7 +152,7 @@ const MusicDetail: React.FC<{
         .review-card {
           margin-bottom: 20px;
         }
-      `}</style>
+      `}</style> */}
     </div>
   );
 };

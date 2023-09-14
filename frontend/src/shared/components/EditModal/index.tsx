@@ -58,16 +58,30 @@ const EditModal: React.FC<EditModalProps> = ({ open, onClose, isEditingAlbum, it
       'spotify_link': '',
       'apple_music_link': '',
     },
+    id: '',
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
 
-    // console.log(formData);
+    // If the field is within available_on, update it correctly
+    if (name.startsWith('available_on.')) {
+      const linkName = name.replace('available_on.', '');
+
+      setFormData((prevData) => ({
+        ...prevData,
+        available_on: {
+          ...prevData.available_on,
+          [linkName]: value,
+        },
+      }));
+    } else {
+
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
   };
 
   const handleSubmit = () => {
@@ -110,7 +124,7 @@ const EditModal: React.FC<EditModalProps> = ({ open, onClose, isEditingAlbum, it
           if(response.status == 200){
             Swal.fire({
               icon: 'success',
-              title: 'Música editada com sucesso!',
+              title: 'Album editado com sucesso!',
               showConfirmButton: false,
               timer: 1500
             })
@@ -196,7 +210,6 @@ const EditModal: React.FC<EditModalProps> = ({ open, onClose, isEditingAlbum, it
             </Grid>
             <Grid item xs={6}>
               <TextField
-                required
                 name="available_on.youtube_link"
                 label="Youtube link"
                 fullWidth
@@ -208,7 +221,6 @@ const EditModal: React.FC<EditModalProps> = ({ open, onClose, isEditingAlbum, it
             </Grid>
             <Grid item xs={6}>
               <TextField
-                required
                 name="available_on.spotify_link"
                 label="Spotify link"
                 fullWidth
@@ -220,7 +232,6 @@ const EditModal: React.FC<EditModalProps> = ({ open, onClose, isEditingAlbum, it
             </Grid>
             <Grid item xs={6}>
               <TextField
-                required
                 name="available_on.deezer_link"
                 label="Deezer link"
                 fullWidth
@@ -232,7 +243,6 @@ const EditModal: React.FC<EditModalProps> = ({ open, onClose, isEditingAlbum, it
             </Grid>
             <Grid item xs={6}>
               <TextField
-                required
                 name="available_on.apple_music_link"
                 label="Apple Music link"
                 fullWidth
@@ -242,15 +252,28 @@ const EditModal: React.FC<EditModalProps> = ({ open, onClose, isEditingAlbum, it
                 style={{ marginBottom: '8px' }}
               />
             </Grid>
+            <Grid item xs={6}>
+              <TextField
+                required
+                name="id"
+                label="id"
+                fullWidth
+                value={formData.id}
+                onChange={handleInputChange}
+                color="secondary"
+                style={{ marginBottom: '8px' }}
+                disabled
+              />
+            </Grid>
           </Grid>
         </form>
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} color="primary">
-          Cancel
+          Cancelar
         </Button>
         <Button onClick={handleSubmit} color="secondary">
-          Save
+          Salvar
         </Button>
       </DialogActions>
     </Dialog>
